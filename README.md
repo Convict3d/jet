@@ -2,6 +2,11 @@
 
 <img src="jet-gopher.png" alt="Jet Gopher" height="120"/>
 
+[![Go Version](https://img.shields.io/github/go-mod/go-version/Convict3d/jet)](https://go.dev/)
+[![Release](https://img.shields.io/github/v/release/Convict3d/jet)](https://github.com/Convict3d/jet/releases)
+[![License](https://img.shields.io/github/license/Convict3d/jet)](LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Convict3d/jet)](https://goreportcard.com/report/github.com/Convict3d/jet)
+
 A compact, human-readable data serialization format optimized for LLM token efficiency.
 
 ## Overview
