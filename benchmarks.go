@@ -9,12 +9,15 @@ import (
 
 // TokenComparison holds the comparison results between Jet and JSON
 type TokenComparison struct {
-	JetBytes     int
-	JSONBytes    int
-	JetTokens    int
-	JSONTokens   int
-	ByteSavings  float64 // percentage
-	TokenSavings float64 // percentage
+	JetBytes       int
+	JSONBytes      int
+	JSONInBytes    int
+	JetTokens      int
+	JSONTokens     int
+	JSONInTokens   int
+	ByteSavings    float64 // percentage
+	TokenSavings   float64 // percentage
+	TokenInSavings float64 // percentage
 }
 
 // CompareTokens compares the token count and byte size between Jet and JSON formats
@@ -29,6 +32,11 @@ func CompareTokens(data interface{}) (*TokenComparison, error) {
 	jsonBytes, err := json.Marshal(data)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal to JSON: %w", err)
+	}
+
+	jsonIndentBytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal to indented JSON: %w", err)
 	}
 
 	// Initialize tokenizer (using cl100k_base encoding, commonly used by GPT-4)
@@ -48,17 +56,26 @@ func CompareTokens(data interface{}) (*TokenComparison, error) {
 		return nil, fmt.Errorf("failed to tokenize JSON output: %w", err)
 	}
 
+	jsonInTokens, _, err := enc.Encode(string(jsonIndentBytes))
+	if err != nil {
+		return nil, fmt.Errorf("failed to tokenize indented JSON output: %w", err)
+	}
+
 	// Calculate savings
 	byteSavings := float64(len(jsonBytes)-len(jetBytes)) / float64(len(jsonBytes)) * 100
 	tokenSavings := float64(len(jsonTokens)-len(jetTokens)) / float64(len(jsonTokens)) * 100
+	tokenInSavings := float64(len(jsonInTokens)-len(jetTokens)) / float64(len(jsonInTokens)) * 100
 
 	return &TokenComparison{
-		JetBytes:     len(jetBytes),
-		JSONBytes:    len(jsonBytes),
-		JetTokens:    len(jetTokens),
-		JSONTokens:   len(jsonTokens),
-		ByteSavings:  byteSavings,
-		TokenSavings: tokenSavings,
+		JetBytes:       len(jetBytes),
+		JSONBytes:      len(jsonBytes),
+		JSONInBytes:    len(jsonIndentBytes),
+		JetTokens:      len(jetTokens),
+		JSONTokens:     len(jsonTokens),
+		JSONInTokens:   len(jsonInTokens),
+		ByteSavings:    byteSavings,
+		TokenSavings:   tokenSavings,
+		TokenInSavings: tokenInSavings,
 	}, nil
 }
 
@@ -76,6 +93,11 @@ func CompareTokensFlattened(data interface{}) (*TokenComparison, error) {
 		return nil, fmt.Errorf("failed to marshal to JSON: %w", err)
 	}
 
+	jsonIndentBytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal to indented JSON: %w", err)
+	}
+
 	// Initialize tokenizer (using cl100k_base encoding, commonly used by GPT-4)
 	enc, err := tokenizer.Get(tokenizer.Cl100kBase)
 	if err != nil {
@@ -93,17 +115,26 @@ func CompareTokensFlattened(data interface{}) (*TokenComparison, error) {
 		return nil, fmt.Errorf("failed to tokenize JSON output: %w", err)
 	}
 
+	jsonInTokens, _, err := enc.Encode(string(jsonIndentBytes))
+	if err != nil {
+		return nil, fmt.Errorf("failed to tokenize indented JSON output: %w", err)
+	}
+
 	// Calculate savings
 	byteSavings := float64(len(jsonBytes)-len(jetBytes)) / float64(len(jsonBytes)) * 100
 	tokenSavings := float64(len(jsonTokens)-len(jetTokens)) / float64(len(jsonTokens)) * 100
+	tokenInSavings := float64(len(jsonInTokens)-len(jetTokens)) / float64(len(jsonInTokens)) * 100
 
 	return &TokenComparison{
-		JetBytes:     len(jetBytes),
-		JSONBytes:    len(jsonBytes),
-		JetTokens:    len(jetTokens),
-		JSONTokens:   len(jsonTokens),
-		ByteSavings:  byteSavings,
-		TokenSavings: tokenSavings,
+		JetBytes:       len(jetBytes),
+		JSONBytes:      len(jsonBytes),
+		JSONInBytes:    len(jsonIndentBytes),
+		JetTokens:      len(jetTokens),
+		JSONTokens:     len(jsonTokens),
+		JSONInTokens:   len(jsonInTokens),
+		ByteSavings:    byteSavings,
+		TokenSavings:   tokenSavings,
+		TokenInSavings: tokenInSavings,
 	}, nil
 }
 
@@ -120,6 +151,11 @@ func CompareTokensNormalized(data interface{}) (*TokenComparison, error) {
 		return nil, fmt.Errorf("failed to marshal to JSON: %w", err)
 	}
 
+	jsonIndentBytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal to indented JSON: %w", err)
+	}
+
 	// Initialize tokenizer (using cl100k_base encoding, commonly used by GPT-4)
 	enc, err := tokenizer.Get(tokenizer.Cl100kBase)
 	if err != nil {
@@ -137,16 +173,24 @@ func CompareTokensNormalized(data interface{}) (*TokenComparison, error) {
 		return nil, fmt.Errorf("failed to tokenize JSON output: %w", err)
 	}
 
+	jsonInTokens, _, err := enc.Encode(string(jsonIndentBytes))
+	if err != nil {
+		return nil, fmt.Errorf("failed to tokenize indented JSON output: %w", err)
+	}
+
 	// Calculate savings
 	byteSavings := float64(len(jsonBytes)-len(jetBytes)) / float64(len(jsonBytes)) * 100
 	tokenSavings := float64(len(jsonTokens)-len(jetTokens)) / float64(len(jsonTokens)) * 100
+	tokenInSavings := float64(len(jsonInTokens)-len(jetTokens)) / float64(len(jsonInTokens)) * 100
 
 	return &TokenComparison{
-		JetBytes:     len(jetBytes),
-		JSONBytes:    len(jsonBytes),
-		JetTokens:    len(jetTokens),
-		JSONTokens:   len(jsonTokens),
-		ByteSavings:  byteSavings,
-		TokenSavings: tokenSavings,
+		JetBytes:       len(jetBytes),
+		JSONBytes:      len(jsonBytes),
+		JSONInBytes:    len(jsonIndentBytes),
+		JetTokens:      len(jetTokens),
+		JSONTokens:     len(jsonTokens),
+		ByteSavings:    byteSavings,
+		TokenSavings:   tokenSavings,
+		TokenInSavings: tokenInSavings,
 	}, nil
 }

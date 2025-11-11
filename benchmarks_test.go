@@ -40,10 +40,11 @@ func TestTokenComparison(t *testing.T) {
 	}
 
 	log.Printf("\n=== Token Comparison Results (Flattened) ===")
-	log.Printf("JSON:            	%d bytes, %d tokens", comparisonFlat.JSONBytes, comparisonFlat.JSONTokens)
-	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings)
-	log.Printf("Jet Normalized:   	%d bytes, %d tokens, %.2f%% tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings)
-	log.Printf("Jet Flattened:   	%d bytes, %d tokens, %.2f%% tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings)
+	log.Printf("JSON Indented:   	%d bytes, %d tokens", comparison.JSONInBytes, comparison.JSONInTokens)
+	log.Printf("JSON:            	%d bytes, %d tokens", comparison.JSONBytes, comparison.JSONTokens)
+	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings, comparison.TokenInSavings)
+	log.Printf("Jet Normalized:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings, comparisonNormalized.TokenInSavings)
+	log.Printf("Jet Flattened:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings, comparisonFlat.TokenInSavings)
 	log.Printf("Ultimate Savings: %.2f%% bytes, %.2f%% tokens", comparisonFlat.ByteSavings, comparisonFlat.TokenSavings)
 }
 
@@ -83,10 +84,11 @@ func TestTokenComparisonLargeData(t *testing.T) {
 	}
 
 	log.Printf("\n=== Large Data Token Comparison Results (Flattened) ===")
+	log.Printf("JSON Indented:   	%d bytes, %d tokens", comparisonFlat.JSONInBytes, comparisonFlat.JSONInTokens)
 	log.Printf("JSON:            	%d bytes, %d tokens", comparisonFlat.JSONBytes, comparisonFlat.JSONTokens)
-	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings)
-	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings)
-	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings)
+	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings, comparison.TokenInSavings)
+	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings, comparisonNormalized.TokenInSavings)
+	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings, comparisonFlat.TokenInSavings)
 	log.Printf("Ultimate Savings: %.2f%% bytes, %.2f%% tokens", comparisonFlat.ByteSavings, comparisonFlat.TokenSavings)
 }
 
@@ -183,10 +185,11 @@ func TestTokenComparisonMultiNested(t *testing.T) {
 	}
 
 	log.Printf("\n=== Multi-Nested Data Token Comparison Results ===")
-	log.Printf("JSON:            	%d bytes, %d tokens", comparisonFlat.JSONBytes, comparisonFlat.JSONTokens)
-	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings)
-	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings)
-	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings)
+	log.Printf("JSON Indented:   	%d bytes, %d tokens", comparison.JSONInBytes, comparison.JSONInTokens)
+	log.Printf("JSON:            	%d bytes, %d tokens", comparison.JSONBytes, comparison.JSONTokens)
+	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings, comparison.TokenInSavings)
+	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings, comparisonNormalized.TokenInSavings)
+	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings, comparisonFlat.TokenInSavings)
 	log.Printf("Ultimate Savings: %.2f%% bytes, %.2f%% tokens", comparisonFlat.ByteSavings, comparisonFlat.TokenSavings)
 }
 func TestTokenComparisonHighColumnCount(t *testing.T) {
@@ -258,9 +261,10 @@ func TestTokenComparisonHighColumnCount(t *testing.T) {
 	}
 
 	log.Printf("\n=== Multi-Nested Data Token Comparison Results ===")
-	log.Printf("JSON:            	%d bytes, %d tokens", comparisonFlat.JSONBytes, comparisonFlat.JSONTokens)
-	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings)
-	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings)
-	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings)
+	log.Printf("JSON Indented:   	%d bytes, %d tokens", comparison.JSONInBytes, comparison.JSONInTokens)
+	log.Printf("JSON:            	%d bytes, %d tokens", comparison.JSONBytes, comparison.JSONTokens)
+	log.Printf("Jet:   		%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparison.JetBytes, comparison.JetTokens, comparison.TokenSavings, comparison.TokenInSavings)
+	log.Printf("Normalized:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonNormalized.JetBytes, comparisonNormalized.JetTokens, comparisonNormalized.TokenSavings, comparisonNormalized.TokenInSavings)
+	log.Printf("Flattened:   	%d bytes, %d tokens, %.2f%% tokens, %.2f%% ind tokens", comparisonFlat.JetBytes, comparisonFlat.JetTokens, comparisonFlat.TokenSavings, comparisonFlat.TokenInSavings)
 	log.Printf("Ultimate Savings: %.2f%% bytes, %.2f%% tokens", comparisonFlat.ByteSavings, comparisonFlat.TokenSavings)
 }

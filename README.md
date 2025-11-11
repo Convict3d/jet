@@ -15,7 +15,7 @@ Jet is a lightweight alternative to JSON/YAML that uses tabular representation t
 
 ## Key Features
 
-- **Token Efficient**: Up to 36% fewer tokens compared to JSON for nested data
+- **Token Efficient**: Up to 70% fewer tokens compared to Indented JSON, and around 36% fewer tokens compared to Single-Line JSON
 - **Human Readable**: Clear, tabular format that's easy to understand
 - **Two Format Modes**: Normal and Normalized to suit different use cases
 - **Type Safe**: Full Go struct support with reflection-based marshaling
@@ -118,11 +118,12 @@ type User struct {
 
 Real-world benchmark with 100 customers, 5 orders each, 3 items per order:
 
-| Format | Bytes | Tokens | Savings vs JSON |
-|--------|-------|--------|-----------------|
-| JSON | 216,312 | 69,394 | - |
-| Jet Normal | 145,172 | 59,214 | 33% bytes, 15% tokens |
-| Jet Normalized | ~140,000 | ~57,000 | 35% bytes, 18% tokens |
+| Format | Bytes | Tokens | Savings vs JSON | Savings vs JSON Indented |
+|--------|-------|--------|-----------------|--------------------------|
+| JSON Indented | 400,413 | 112,094 | - | - |
+| JSON | 216,312 | 69,394 | - | - |
+| Jet Normal | 145,172 | 59,214 | 33% bytes, 15% tokens | 63.7% bytes, 47% tokens |
+| Jet Normalized | ~140,000 | ~57,000 | 35% bytes, 18% tokens | 65% bytes, 48% tokens |
 
 ## Format Comparison
 

@@ -56,7 +56,7 @@ func formatNormalized(data interface{}) ([]byte, error) {
 }
 
 func (w *jetWriter) writeValue(data interface{}, indentLevel int) error {
-	indentStr := strings.Repeat("  ", indentLevel)
+	indentStr := strings.Repeat(" ", indentLevel)
 
 	switch v := data.(type) {
 	// Handling maps
@@ -123,7 +123,7 @@ func (w *jetWriter) writeTabularArrayNormal(indentStr, key string, data []interf
 	w.sb.WriteString(fmt.Sprintf("%s%s{%s}:\n", indentStr, key, strings.Join(schema, "|")))
 
 	// Write rows
-	rowDataIndent := strings.Repeat("  ", indentLevel+1)
+	rowDataIndent := strings.Repeat(" ", indentLevel+1)
 	for _, row := range data {
 		rowMap := row.(map[string]interface{})
 		w.sb.WriteString(rowDataIndent)
@@ -167,7 +167,7 @@ func (w *jetWriter) writeTabularArrayFlattened(indentStr, key string, data []int
 	w.sb.WriteString(fmt.Sprintf("%s%s{%s}:\n", indentStr, key, flatSchema))
 
 	// Write rows
-	rowDataIndent := strings.Repeat("  ", indentLevel+1)
+	rowDataIndent := strings.Repeat(" ", indentLevel+1)
 	for _, row := range data {
 		rowMap := row.(map[string]interface{})
 		w.sb.WriteString(rowDataIndent)
@@ -188,7 +188,7 @@ func (w *jetWriter) writeTabularArrayNormalized(indentStr, key string, data []in
 	w.sb.WriteString(fmt.Sprintf("%s%s{%s}:\n", indentStr, key, normalizedSchema))
 
 	// Write rows
-	rowDataIndent := strings.Repeat("  ", indentLevel+1)
+	rowDataIndent := strings.Repeat(" ", indentLevel+1)
 	for _, row := range data {
 		rowMap := row.(map[string]interface{})
 		w.sb.WriteString(rowDataIndent)
